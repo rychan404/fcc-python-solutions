@@ -1,4 +1,4 @@
-def add_time(start, duration):
+def add_time(start, duration, start_day_of_week=''):
     # Split start time into hours, mins, & period
     split = start.index(':')
     start_hours = ''
@@ -66,6 +66,17 @@ def add_time(start, duration):
     # Convert leading hours term 0 to 12
     if new_hours == 0:
         new_hours = 12
+
+    # List of days of the week
+    days_of_week = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+
+    # Convert start_day_of_week to lowercase
+    start_day_of_week = start_day_of_week.lower()
+
+    # Convert start_day_of_week to numerical index of days_of_week
+    for i in range(len(days_of_week)):
+        if start_day_of_week == days_of_week[i]:
+            start_day_of_week = i
 
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
