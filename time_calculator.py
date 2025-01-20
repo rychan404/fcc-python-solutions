@@ -1,18 +1,20 @@
 def add_time(start, duration):
     # Split start time into hours & mins
     split = start.index(':')
-    hours = ''
-    mins = ''
+    start_hours = ''
+    start_mins = ''
     for i in range(len(start)):
         if start[i].isdigit():
             if i < split:
-                hours += start[i]
+                start_hours += start[i]
             else:
-                mins += start[i]
+                start_mins += start[i]
+
+
 
     # Tests
-    print(hours)
-    print(mins)
+    print(start_hours)
+    print(start_mins)
 
     new_time = start
     return new_time
