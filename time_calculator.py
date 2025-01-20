@@ -38,6 +38,9 @@ def add_time(start, duration):
     # Add duration_mins to start_mins
     new_mins = start_mins + duration_mins
 
+    # Merge new times together
+    new_time = str(new_hours) + ":" + str(new_mins) + " " + str(start_period)
+
     # Tests
     print(start_hours)
     print(start_mins)
@@ -45,7 +48,6 @@ def add_time(start, duration):
     print(duration_hours)
     print(duration_mins)
 
-    new_time = start
     return new_time
 
 # Tests
