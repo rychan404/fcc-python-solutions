@@ -25,7 +25,19 @@ def add_time(start, duration):
                 duration_hours += duration[i]
             else:
                 duration_mins += duration[i]
-    
+
+    # Convert to times to integers
+    start_hours = int(start_hours)
+    start_mins = int(start_mins)
+    duration_hours = int(duration_hours)
+    duration_mins = int(duration_mins)
+
+    # Add duration_hours to start_hours
+    new_hours = start_hours + duration_hours
+
+    # Add duration_mins to start_mins
+    new_mins = start_mins + duration_mins
+
     # Tests
     print(start_hours)
     print(start_mins)
