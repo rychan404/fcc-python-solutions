@@ -78,15 +78,23 @@ def add_time(start, duration, start_day_of_week=''):
         if start_day_of_week == days_of_week[i]:
             start_day_of_week = i
 
-    # Find index of day of the week that corresponds to the list
-    new_day_of_week = (start_day_of_week + days_later) % 7
-
-    # Change new_day_of_week to the actual day of the week
-    new_day_of_week = days_of_week[new_day_of_week]
-
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
 
+    if start_day_of_week != '':
+        # Find index of day of the week that corresponds to the list
+        new_day_of_week = (start_day_of_week + days_later) % 7
+
+        # Change new_day_of_week to the actual day of the week
+        new_day_of_week = days_of_week[new_day_of_week]
+
+        # Capitalize first letter of day of the week
+        new_day_of_week = new_day_of_week.capitalize()
+
+        # Add day of the week
+        if days_of_week != '':
+            new_time += f', {new_day_of_week}'
+        
     # Add number of days later
     if days_later > 1:
         new_time += f' ({days_later} days later)'
@@ -104,4 +112,4 @@ def add_time(start, duration, start_day_of_week=''):
 
 # Tests
 print(add_time('3:00 PM', '3:10'))
-print(add_time('11:50 AM', '48:10'))
+print(add_time('11:50 AM', '48:10', 'Monday'))
