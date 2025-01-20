@@ -58,6 +58,7 @@ def add_time(start, duration, start_day_of_week=''):
         new_period = 'PM'
     else:
         new_period = 'AM'
+        days_later += 1
 
     # Format leading mins term
     if new_mins >= 0 and new_mins <= 9:
@@ -105,10 +106,11 @@ def add_time(start, duration, start_day_of_week=''):
     print(start_hours)
     print(start_mins)
     print(start_period)
+    print(days_later)
     print(duration_hours)
     print(duration_mins)
 
     return new_time
 
 # Tests
-print(add_time('11:55 AM', '3:12'))
+print(add_time('10:10 PM', '3:30'))
