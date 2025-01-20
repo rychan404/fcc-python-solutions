@@ -43,6 +43,9 @@ def add_time(start, duration):
     # Calculate number of times to switch AM & PM
     period_switch = new_hours // 12
 
+    # Calculate number of days later
+    days_later = new_hours // 24
+
     # Calculate leading hours term
     new_hours %= 12
 
@@ -62,6 +65,12 @@ def add_time(start, duration):
 
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
+
+    # Add number of days later
+    if days_later > 1:
+        new_time += f' ({days_later} days later)'
+    elif days_later == 1:
+        new_time += ' (next day)'
 
     # Tests
     print(start_hours)
