@@ -63,6 +63,10 @@ def add_time(start, duration):
     if new_mins == 0:
         new_mins = '00'
 
+    # Convert leading hours term 0 to 12
+    if new_hours == 0:
+        new_hours = 12
+
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
 
@@ -83,4 +87,4 @@ def add_time(start, duration):
 
 # Tests
 print(add_time('3:00 PM', '3:10'))
-print(add_time('11:50 AM', '3:10'))
+print(add_time('11:50 AM', '48:10'))
