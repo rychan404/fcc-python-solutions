@@ -56,6 +56,10 @@ def add_time(start, duration):
     else:
         new_period = 'AM'
 
+    # Convert leading mins term 0 to 00
+    if new_mins == 0:
+        new_mins = '00'
+
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
 
