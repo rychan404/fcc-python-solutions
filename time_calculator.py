@@ -78,6 +78,12 @@ def add_time(start, duration, start_day_of_week=''):
         if start_day_of_week == days_of_week[i]:
             start_day_of_week = i
 
+    # Find index of day of the week that corresponds to the list
+    new_day_of_week = (start_day_of_week + days_later) % 7
+
+    # Change new_day_of_week to the actual day of the week
+    new_day_of_week = days_of_week[new_day_of_week]
+
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
 
