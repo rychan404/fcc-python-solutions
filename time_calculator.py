@@ -102,15 +102,4 @@ def add_time(start, duration, start_day_of_week=''):
     elif days_later == 1:
         new_time += ' (next day)'
 
-    # Tests
-    print(start_hours)
-    print(start_mins)
-    print(start_period)
-    print(days_later)
-    print(duration_hours)
-    print(duration_mins)
-
     return new_time
-
-# Tests
-print(add_time('10:10 PM', '3:30'))
