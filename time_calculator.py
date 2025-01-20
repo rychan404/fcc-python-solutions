@@ -32,15 +32,20 @@ def add_time(start, duration):
     duration_hours = int(duration_hours)
     duration_mins = int(duration_mins)
 
+    # Add duration_mins to start_mins
+    new_mins = start_mins + duration_mins
+    new_hours = new_mins // 60
+    new_mins %= 60
+
     # Add duration_hours to start_hours
-    new_hours = start_hours + duration_hours
+    new_hours += start_hours + duration_hours
     
     # Calculate number of times to switch AM & PM
     period_switch = new_hours // 12
 
     # Calculate leading hours term
     new_hours %= 12
-    
+
     new_period = ''
 
     # Check to see when to switch AM to PM (or vice versa)
@@ -50,9 +55,6 @@ def add_time(start, duration):
         new_period = 'PM'
     else:
         new_period = 'AM'
-
-    # Add duration_mins to start_mins
-    new_mins = start_mins + duration_mins
 
     # Merge new times together
     new_time = str(new_hours) + ":" + str(new_mins) + " " + str(new_period)
