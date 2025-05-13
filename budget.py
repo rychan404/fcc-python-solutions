@@ -18,4 +18,7 @@ class Category:
                 if key == 'amount':
                     total += value
         return total
-    
+    def check_funds(self, amount):
+        if amount > self.get_balance():
+            return False
+        return True
