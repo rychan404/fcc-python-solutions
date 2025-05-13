@@ -11,3 +11,11 @@ class Category:
             self.ledger.append({'amount' : amount, 'description' : description})
             return True
         return False
+    def get_balance(self):
+        total = 0
+        for process in self.ledger:
+            for key, value in process.items():
+                if key == 'amount':
+                    total += value
+        return total
+    
