@@ -8,7 +8,7 @@ class Category:
 
     def withdraw(self, amount, description=""):
         if self.check_funds(amount):
-            self.ledger.append({'amount' : amount, 'description' : description})
+            self.ledger.append({'amount' : -amount, 'description' : description})
             return True
         return False
     def transfer(self, amount, category):
