@@ -66,12 +66,41 @@ def create_spend_chart(categories):
     category_names = list()
     categories_total = 0
     for category in categories:
+        total_amount = 0
         for transaction in category.ledger:
             if transaction['amount'] < 0:
-                category_withdraw.append(transaction['amount'])
-                category_names.append(category.name)
+                total_amount -= transaction['amount']
                 categories_total -= transaction['amount']
+        if total_amount != 0:
+            category_withdraw.append(round(total_amount, 2))
+            category_names.append(category.name)
     categories_total = round(categories_total, 2)
+    category_withdraw = [math.floor(math.floor((amount / categories_total) * 100) / 10) * 10 for amount in category_withdraw]
+
+    for percent in range(100, -1, -10):
+        chart += '\n'
+        for _ in range(3 - len(str(percent))):
+            chart += ' '    
+        chart += f'{percent}|'
+        for amount in category_withdraw:
+            if amount >= percent:
+                chart += 'o'
+    chart += '\n    '
+    for _ in range((len(categories) * 3) + 1):
+        chart += '-'
+    chart += '\n   '
+    '''
+    for category in categories:
+        category_withdraw.append(0)
+        category_names.append('')
+        for transaction in category.ledger:
+            if transaction['amount'] < 0:
+                print(len(category_withdraw))
+                category_withdraw[len(category_withdraw) - 2] += transaction['amount']
+                category_names[len(category_names) - 1] = category.name
+    categories_total = round(sum(category_withdraw), 2)
+    print(category_withdraw)
+    print(categories_total)
     category_withdraw = [math.floor(math.floor((-amount / categories_total) * 100) / 10) * 10 for amount in category_withdraw]
     for percent in range(100, -1, -10):
         chart += f'\n{percent} |'
@@ -82,9 +111,7 @@ def create_spend_chart(categories):
     for _ in range((len(categories) * 3) + 1):
         chart += '-'
     chart += '\n   '
-    for num in range(len(category_names)):
-        for category_name in category_names:
-            chart += f'  {category_name[num]}'
+    '''
     return chart
 
 food = Category('Food')
@@ -93,5 +120,8 @@ food.withdraw(10.15, 'groceries')
 food.withdraw(15.89, 'restaurant and more food for dessert')
 clothing = Category('Clothing')
 food.transfer(50, clothing)
+clothing.transfer(20, food)
+clothing.deposit(300, 'big man')
+clothing.withdraw(50, 'shirts')
 print(food)
-print(create_spend_chart({food, clothing}))
+print(create_spend_chart([food, clothing]))
