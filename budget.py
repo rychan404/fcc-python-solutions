@@ -32,23 +32,28 @@ class Category:
             return False
         return True
     
+    def _create_spaces(self, description_len, amount_len, title_len):
+        spaces = ''
+        for _ in range(title_len - amount_len - description_len):
+            spaces += ' '
+        return spaces
+    
     def __str__(self):
         budget_title = ''
         for _ in range(int((30 - len(self.name)) / 2)):
             budget_title += '*'
         budget_title += self.name
-        for _ in range(30 - len(title)):
+        for _ in range(30 - len(budget_title)):
             budget_title += '*'
         
-        budget_list = list()
-
+        budget_list = ''
         for action in self.ledger:
-            for amount, description in action.items():
-                if description == 'deposit':
-                    
-                pass
-        budget_receipt = title
-        return title
+            budget_list += '\n'  
+            for description, amount in action.items():
+                budget_list += f'{description}{self._create_spaces(len(description), len(str(amount)), len(budget_title))}{amount}'          
+        budget_receipt = budget_title + budget_list
+        return budget_receipt
+
 
 food = Category('Food')
 food.deposit(1000, 'deposit')
