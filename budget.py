@@ -72,9 +72,13 @@ def create_spend_chart(categories):
     categories_total = round(categories_total, 2)
     for transaction in category_withdraw:
         transaction['amount'] = math.floor(math.floor((-transaction['amount'] / categories_total) * 100) / 10) * 10
+    
     for percent in range(100, -1, -10):
-        print(f'{percent} |')
-    return category_withdraw
+        chart += f'\n{percent} |'
+        for transaction in category_withdraw:
+            if transaction['amount'] >= percent:
+                chart += 'o'
+    return chart
 
 food = Category('Food')
 food.deposit(1000, 'deposit')
