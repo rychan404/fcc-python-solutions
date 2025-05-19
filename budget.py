@@ -1,3 +1,5 @@
+import math
+
 class Category:
     def __init__(self, name):
         self.name = name
@@ -57,6 +59,22 @@ class Category:
         budget_receipt = budget_title + budget_list + f'\nTotal: {str(self.get_balance())}'
         return budget_receipt
 
+def create_spend_chart(categories):
+    chart = 'Percentage spent by category'
+
+    category_withdraw = list()
+    categories_total = 0
+    for category in categories:
+        for transaction in category.ledger:
+            if transaction['amount'] < 0:
+                category_withdraw.append({'amount': transaction['amount'], 'description' : transaction['description']})
+                categories_total -= transaction['amount']
+    categories_total = round(categories_total, 2)
+    for transaction in category_withdraw:
+        transaction['amount'] = math.floor(math.floor((-transaction['amount'] / categories_total) * 100) / 10) * 10
+    for percent in range(100, -1, -10):
+        print(f'{percent} |')
+    return category_withdraw
 
 food = Category('Food')
 food.deposit(1000, 'deposit')
@@ -65,3 +83,4 @@ food.withdraw(15.89, 'restaurant and more food for dessert')
 clothing = Category('Clothing')
 food.transfer(50, clothing)
 print(food)
+print(create_spend_chart({food, clothing}))
