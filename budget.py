@@ -84,34 +84,26 @@ def create_spend_chart(categories):
         chart += f'{percent}|'
         for amount in category_withdraw:
             if amount >= percent:
-                chart += 'o'
+                chart += ' o '
+            else:
+                chart += '   '
+        chart += ' '
     chart += '\n    '
     for _ in range((len(categories) * 3) + 1):
         chart += '-'
     chart += '\n   '
-    '''
-    for category in categories:
-        category_withdraw.append(0)
-        category_names.append('')
-        for transaction in category.ledger:
-            if transaction['amount'] < 0:
-                print(len(category_withdraw))
-                category_withdraw[len(category_withdraw) - 2] += transaction['amount']
-                category_names[len(category_names) - 1] = category.name
-    categories_total = round(sum(category_withdraw), 2)
-    print(category_withdraw)
-    print(categories_total)
-    category_withdraw = [math.floor(math.floor((-amount / categories_total) * 100) / 10) * 10 for amount in category_withdraw]
-    for percent in range(100, -1, -10):
-        chart += f'\n{percent} |'
-        for amount in category_withdraw:
-            if amount >= percent:
-                chart += 'o'
-    chart += '\n    '
-    for _ in range((len(categories) * 3) + 1):
-        chart += '-'
-    chart += '\n   '
-    '''
+
+    for num in range(max([len(name) for name in category_names])):
+        for name in category_names:
+            if num < len(name):
+                chart += f'  {name[num]}'
+            else:
+                chart += '   '
+        if num == len(name) - 1:
+            chart += '  '
+        else:
+            chart += '  \n   ' 
+
     return chart
 
 food = Category('Food')
