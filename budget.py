@@ -15,7 +15,7 @@ class Category:
     def transfer(self, amount, category):
         if self.check_funds(amount):
             self.withdraw(amount, "Transfer to " + category.name)
-            self.deposit(amount, "Transfer from " + self.name)
+            category.deposit(amount, "Transfer from " + self.name)
             return True
         return False
     
@@ -32,9 +32,9 @@ class Category:
             return False
         return True
     
-    def _create_spaces(self, description_len, amount_len, title_len):
+    def _create_spaces(self, description, amount, title):
         spaces = ''
-        for _ in range(title_len - amount_len - description_len):
+        for _ in range(title - amount - description):
             spaces += ' '
         return spaces
     
@@ -47,11 +47,14 @@ class Category:
             budget_title += '*'
         
         budget_list = ''
-        for action in self.ledger:
-            budget_list += '\n'  
-            for description, amount in action.items():
-                budget_list += f'{description}{self._create_spaces(len(description), len(str(amount)), len(budget_title))}{amount}'          
-        budget_receipt = budget_title + budget_list
+        for transaction in self.ledger:
+            budget_list += '\n' + transaction['description'][:23:]
+            if str(transaction['amount']).find('.') == -1:
+                budget_list += self._create_spaces(len(transaction['description'][:23:]), len(str(transaction['amount'])) + 3, len(budget_title)) + str(transaction['amount']) + '.00'
+            else:
+                budget_list += self._create_spaces(len(transaction['description'][:23:]), len(str(transaction['amount'])), len(budget_title)) + str(transaction['amount'])
+
+        budget_receipt = budget_title + budget_list + f'\nTotal: {str(self.get_balance())}'
         return budget_receipt
 
 
