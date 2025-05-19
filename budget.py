@@ -33,12 +33,21 @@ class Category:
         return True
     
     def __str__(self):
-        title = ''
+        budget_title = ''
         for _ in range(int((30 - len(self.name)) / 2)):
-            title += '*'
-        title += self.name
+            budget_title += '*'
+        budget_title += self.name
         for _ in range(30 - len(title)):
-            title += '*'
+            budget_title += '*'
+        
+        budget_list = list()
+
+        for action in self.ledger:
+            for amount, description in action.items():
+                if description == 'deposit':
+                    
+                pass
+        budget_receipt = title
         return title
 
 food = Category('Food')
