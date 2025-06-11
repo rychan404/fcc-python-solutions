@@ -18,6 +18,13 @@ class Rectangle:
     def get_diagonal(self):
         return (self.width**2 + self.height**2)**0.5
     
+    def get_picture(self):
+        picture = ''
+        for row in range(self.height):
+            for col in range(self.width):
+                picture += '*'
+            picture += '\n'
+        return picture
     
 class Square(Rectangle):
     pass
