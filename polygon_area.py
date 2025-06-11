@@ -29,15 +29,19 @@ class Rectangle:
         return picture
 
     def __str__(self):
-        string = f'{__class__.__name__}('
-        if self.width == self.height:
-            string += f'side={self.width})'
-        else:
-            string += f'width={self.width}, height={self.height})'
-        return string
+        return f'Rectangle(width={self.width}, height={self.height})'
         
 class Square(Rectangle):
-    pass
+    def __init__(self, side):
+        super().__init__(side, side)
+    
+    def set_side(self, side):
+        super().set_width(side)
+        super().set_height(side)
+    
+    def __str__(self):
+        return f'Square(side={self.width})'
+
 
 rect = Rectangle(10, 5)
 print(rect.get_area())
@@ -45,3 +49,10 @@ rect.set_height(3)
 print(rect.get_perimeter())
 print(rect)
 print(rect.get_picture())
+
+sq = Square(9)
+print(sq.get_area())
+sq.set_side(4)
+print(sq.get_diagonal())
+print(sq)
+print(sq.get_picture())
