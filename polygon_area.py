@@ -32,11 +32,15 @@ class Rectangle:
         return f'Rectangle(width={self.width}, height={self.height})'
     
     def get_amount_inside(self, inner_shape):
-        shape = self.get_area()
+        shape_width = getattr(self, 'width')
+        shape_height = getattr(self, 'height')
         amount = 0
-        while (shape > 0):
-            shape -= inner_shape.get_area()
-            amount += 1
+        while (shape_height >= getattr(inner_shape, 'height')):
+            while (shape_width >= getattr(inner_shape, 'width')):
+                shape_width -= getattr(inner_shape, 'width')
+                amount += 1
+            shape_height -= getattr(inner_shape, 'height')
+            shape_width = getattr(self, 'width')
         return amount
 
 class Square(Rectangle):
@@ -75,3 +79,4 @@ print(sq.get_picture())
 rect.set_height(8)
 rect.set_width(16)
 print(rect.get_amount_inside(sq))
+print(Rectangle(4,8).get_amount_inside(Rectangle(3, 6)))
