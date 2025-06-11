@@ -30,7 +30,15 @@ class Rectangle:
 
     def __str__(self):
         return f'Rectangle(width={self.width}, height={self.height})'
-        
+    
+    def get_amount_inside(self, inner_shape):
+        shape = self.get_area()
+        amount = 0
+        while (shape > 0):
+            shape -= inner_shape.get_area()
+            amount += 1
+        return amount
+
 class Square(Rectangle):
     def __init__(self, side):
         super().__init__(side, side)
@@ -41,7 +49,6 @@ class Square(Rectangle):
     
     def __str__(self):
         return f'Square(side={self.width})'
-
 
 rect = Rectangle(10, 5)
 print(rect.get_area())
@@ -56,3 +63,7 @@ sq.set_side(4)
 print(sq.get_diagonal())
 print(sq)
 print(sq.get_picture())
+
+rect.set_height(8)
+rect.set_width(16)
+print(rect.get_amount_inside(sq))
