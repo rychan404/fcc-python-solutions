@@ -27,6 +27,21 @@ class Rectangle:
                 picture += '*'
             picture += '\n'
         return picture
-    
+
+    def __str__(self):
+        string = f'{__class__.__name__}('
+        if self.width == self.height:
+            string += f'side={self.width})'
+        else:
+            string += f'width={self.width}, height={self.height})'
+        return string
+        
 class Square(Rectangle):
     pass
+
+rect = Rectangle(10, 5)
+print(rect.get_area())
+rect.set_height(3)
+print(rect.get_perimeter())
+print(rect)
+print(rect.get_picture())
