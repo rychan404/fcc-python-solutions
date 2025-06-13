@@ -16,7 +16,21 @@ class Hat:
         return self.contents
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
-    pass
+    balls_counted = 0
+    for _ in range(num_experiments):
+        new_hat = copy.copy(hat)
+        observed_balls = {e_color : 0 for e_color in expected_balls}
+        new_hat.draw(num_balls_drawn)
+        print(new_hat.contents)
+        for o_color in new_hat.contents:
+            for e_color in expected_balls:
+                if o_color == e_color:
+                    observed_balls[e_color] += 1
+        successes = [o_num / expected_balls[o_color] for o_color, o_num in observed_balls.items()]
+        balls_counted += min(successes)
+    return balls_counted / num_experiments
 
 hat1 = Hat(yellow=3, blue=2, green=6)
-print(hat1.draw(3))
+print(hat1.contents)
+probability = experiment(hat1, {'yellow' : 2, 'blue' : 1}, 4, 2)
+print(probability)
