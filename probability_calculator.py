@@ -22,6 +22,34 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     balls_counted = 0
     for _ in range(num_experiments):
         new_hat = copy.copy(hat)
+        initial_contents = {e_color : 0 for e_color in expected_balls}
+        for o_color in new_hat.contents:
+            for e_color in expected_balls:
+                if o_color == e_color:
+                    initial_contents[e_color] += 1
+        print(initial_contents)
+        new_hat.draw(num_balls_drawn)
+        after_draw_contents = {e_color : 0 for e_color in expected_balls}
+        for o_color in new_hat.contents:
+            for e_color in expected_balls:
+                if o_color == e_color:
+                    after_draw_contents[e_color] += 1
+        print(after_draw_contents)
+        drawn_contents = {color : initial_contents[color] - after_draw_contents[color] for color in after_draw_contents}
+        print(drawn_contents)
+        success = False
+        for color, value in expected_balls.items():
+            if drawn_contents[color] >= value:
+                success = True
+            else:
+                success = False
+                break
+        if success:
+            balls_counted += 1
+        print(balls_counted)
+    return balls_counted / num_experiments
+    """
+        new_hat = copy.copy(hat)
         observed_balls = {e_color : 0 for e_color in expected_balls}
         print(new_hat.contents)
         new_hat.draw(num_balls_drawn)
@@ -35,8 +63,10 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         print(successes)
         balls_counted += min(successes)
         print(balls_counted)
+    """
+        
     #return balls_counted / num_experiments
 
 hat1 = Hat(yellow=3, blue=2, green=6)
-probability = experiment(hat1, {'yellow' : 2, 'blue' : 1}, 4, 2)
+probability = experiment(hat1, {'yellow' : 2, 'blue' : 1}, 4, 10)
 print(probability)
