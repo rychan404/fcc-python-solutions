@@ -9,11 +9,14 @@ class Hat:
                 self.contents.append(color)
     
     def draw(self, number):
+        drawn = []
         if number > len(self.contents):
-            return self.contents
+            number = len(self.contents)
         for _ in range(number):
-            self.contents.pop(random.randint(0, len(self.contents) - 1))
-        return self.contents
+            rand_num = random.randint(0, len(self.contents) - 1)
+            drawn.append(self.contents[rand_num])
+            self.contents.pop(rand_num)
+        return drawn
 
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     balls_counted = 0
@@ -21,7 +24,6 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         new_hat = copy.copy(hat)
         observed_balls = {e_color : 0 for e_color in expected_balls}
         new_hat.draw(num_balls_drawn)
-        print(new_hat.contents)
         for o_color in new_hat.contents:
             for e_color in expected_balls:
                 if o_color == e_color:
@@ -31,6 +33,8 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     return balls_counted / num_experiments
 
 hat1 = Hat(yellow=3, blue=2, green=6)
+print(hat1.contents)
+hat1.draw(3)
 print(hat1.contents)
 probability = experiment(hat1, {'yellow' : 2, 'blue' : 1}, 4, 2)
 print(probability)
