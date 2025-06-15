@@ -21,7 +21,7 @@ class Hat:
 def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
     balls_counted = 0
     for _ in range(num_experiments):
-        new_hat = copy.copy(hat)
+        new_hat = copy.deepcopy(hat)
         initial_contents = {e_color : 0 for e_color in expected_balls}
         for o_color in new_hat.contents:
             for e_color in expected_balls:
@@ -67,6 +67,9 @@ def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
         
     #return balls_counted / num_experiments
 
-hat1 = Hat(yellow=3, blue=2, green=6)
-probability = experiment(hat1, {'yellow' : 2, 'blue' : 1}, 4, 10)
+hat = Hat(black=6, red=4, green=3)
+probability = experiment(hat=hat,
+                  expected_balls={'red':2,'green':1},
+                  num_balls_drawn=5,
+                  num_experiments=100)
 print(probability)
